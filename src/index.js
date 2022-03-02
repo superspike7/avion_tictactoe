@@ -1,21 +1,12 @@
 import Board from "./components/board.js";
 import Player from "./lib/player.js";
-
-const boardState = [
-  ["", "", "O"],
-  ["", "", ""],
-  ["", "", ""],
-];
-
-const playerOne = Player("X");
-const playerTwo = Player("O");
-
-const boardComponent = Board(boardState);
+import Game from "./lib/game.js";
 
 window.onload = () => {
-  boardComponent.render();
-};
+  const newGame = Game();
+  const playerOne = Player("X");
+  newGame.setCurrentPlayer(playerOne.marker);
 
-console.log(playerOne.score());
-playerOne.addScore();
-console.log(playerOne.score());
+  const boardComponent = Board(newGame);
+  boardComponent.initialRender();
+};
