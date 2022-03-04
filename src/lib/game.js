@@ -26,8 +26,12 @@ export default function Game(p1, p2) {
       pattern.every((cell) => cell === getPreviousPlayer().marker())
     );
 
+    const staleMate = board.every((cell) => cell !== "");
+
     if (winner) {
       return winner;
+    } else if (!winner && staleMate) {
+      return "Draw";
     }
 
     return false;
