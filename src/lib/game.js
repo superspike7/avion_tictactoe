@@ -11,7 +11,7 @@ export default function Game(p1, p2) {
 
   const checkWinner = () => {
     const board = currentBoard.flat();
-    const winning_patterns = [
+    const WINNING_PATTERNS = [
       [board[0], board[1], board[2]],
       [board[3], board[4], board[5]],
       [board[6], board[7], board[8]],
@@ -22,7 +22,7 @@ export default function Game(p1, p2) {
       [board[2], board[4], board[6]],
     ];
 
-    const winner = winning_patterns.find((pattern) =>
+    const winner = WINNING_PATTERNS.find((pattern) =>
       pattern.every((cell) => cell === getPreviousPlayer().marker())
     );
 

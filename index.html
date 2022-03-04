@@ -5,9 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script type="module" src="./src/index.js" defer></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <link rel="stylesheet" href="./output.css" />
   </head>
   <body>
-    <div id="root" class="bg-gray-100 h-screen grid items-center"></div>
+    <div id="root" class="bg-gray-100 h-screen flex justify-center flex-col">
+      <div class="flex gap-4 justify-center mb-16">
+        <button>Previous</button>
+        <button>Reset</button>
+        <button>Next</button>
+      </div>
+    </div>
   </body>
 </html>
