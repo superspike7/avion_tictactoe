@@ -1,12 +1,37 @@
-export default function Game() {
+export default function Game(p1, p2) {
   // let winner;
-  let currentPlayer;
+  const players = [p1, p2];
   let currentBoard;
 
-  const getCurrentPlayer = () => currentPlayer;
+  const getCurrentPlayer = () => players[0];
+  const getPreviousPlayer = () => players[1];
+  const switchCurrentPlayer = () => players.reverse();
   const getCurrentBoard = () => currentBoard;
-  const setCurrentPlayer = (nextPlayer) => (currentPlayer = nextPlayer);
   const setCurrentBoard = (newBoard) => (currentBoard = newBoard);
+
+  const checkWinner = () => {
+    const board = currentBoard.flat();
+    const winning_patterns = [
+      [board[0], board[1], board[2]],
+      [board[3], board[4], board[5]],
+      [board[6], board[7], board[8]],
+      [board[0], board[3], board[6]],
+      [board[1], board[4], board[7]],
+      [board[2], board[5], board[8]],
+      [board[0], board[4], board[8]],
+      [board[2], board[4], board[6]],
+    ];
+
+    const winner = winning_patterns.find((pattern) =>
+      pattern.every((cell) => cell === getPreviousPlayer().marker())
+    );
+
+    if (winner) {
+      return winner;
+    }
+
+    return false;
+  };
 
   // On Create
   const resetBoard = (function setInitialBoard() {
@@ -20,9 +45,10 @@ export default function Game() {
 
   return {
     currentPlayer: getCurrentPlayer,
-    setCurrentPlayer: setCurrentPlayer,
+    switchPlayer: switchCurrentPlayer,
     board: getCurrentBoard(),
     setBoard: setCurrentBoard,
     resetBoard: resetBoard,
+    checkWinner: checkWinner,
   };
 }

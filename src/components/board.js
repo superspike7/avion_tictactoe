@@ -40,8 +40,10 @@ export default function Board(gameState) {
     const [row, col] = JSON.parse(e.target.dataset.position);
     // e.target.removeEventListener;
     // e.target.classList.remove("cursor-pointer");
-    gameState.board[row][col] = gameState.currentPlayer();
+    gameState.board[row][col] = gameState.currentPlayer().marker();
+    gameState.switchPlayer();
     render();
+    console.log(gameState.checkWinner());
   }
 
   const render = () => {
