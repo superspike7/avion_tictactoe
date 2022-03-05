@@ -53,6 +53,14 @@ export default function Board(gameState, observer) {
     document.querySelectorAll("[data-position]").forEach((square) => {
       const [row, col] = JSON.parse(square.dataset.position);
       square.textContent = gameState.board()[row][col];
+
+      if (square.textContent === "O" || square.textContent === "X") {
+        square.removeEventListener("click", squareHandler);
+        square.classList.remove("cursor-pointer");
+      } else {
+        square.addEventListener("click", squareHandler);
+        square.classList.add("cursor-pointer");
+      }
     });
   };
 
