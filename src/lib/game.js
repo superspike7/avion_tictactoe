@@ -1,16 +1,14 @@
 export default function Game(p1, p2) {
-  // let winner;
   const players = [p1, p2];
   let currentBoard;
   let history = [];
-  let head;
-  // let future;
+  let copiedHistory = [];
+  let head = 0;
 
   const getCurrentPlayer = () => players[0];
   const getPreviousPlayer = () => players[1];
   const switchCurrentPlayer = () => players.reverse();
   const getCurrentBoard = () => currentBoard;
-  const setCurrentBoard = (newBoard) => (currentBoard = newBoard);
   const decHead = () => {
     if (history[head - 1] != undefined) {
       head--;
@@ -28,11 +26,21 @@ export default function Game(p1, p2) {
     }
   };
   const getHead = () => head;
+  const resetHead = () => (head = 0);
   const getHistory = () => history;
+  const copyHistory = () => {
+    copiedHistory = JSON.parse(JSON.stringify(history));
+  };
   const resetHistory = () => (history = []);
+  const checkoutHistory = () => (currentBoard = history[head]);
   const addToHistory = () => {
     history.push(JSON.parse(JSON.stringify(currentBoard)));
     head = history.length - 1;
+  };
+  const spliceHistory = () => {
+    const copy = [...copiedHistory];
+    copy.splice(head + 1);
+    history = copy;
   };
 
   const checkWinner = () => {
@@ -55,7 +63,7 @@ export default function Game(p1, p2) {
     const staleMate = board.every((cell) => cell !== "");
 
     if (winner) {
-      return winner;
+      return winner[0];
     } else if (!winner && staleMate) {
       return "Draw";
     }
@@ -78,15 +86,18 @@ export default function Game(p1, p2) {
     currentPlayer: getCurrentPlayer,
     switchPlayer: switchCurrentPlayer,
     board: getCurrentBoard,
-    setBoard: setCurrentBoard,
+    checkoutHistory: checkoutHistory,
     resetBoard: setInitialBoard,
     checkWinner: checkWinner,
     history: getHistory,
+    copyHistory: copyHistory,
     updateHistory: addToHistory,
     resetHistory: resetHistory,
+    spliceHistory: spliceHistory,
     getHead: getHead,
     incHead: incHead,
     // LOL Dickhead! hahaha
     decHead: decHead,
+    resetHead: resetHead,
   };
 }

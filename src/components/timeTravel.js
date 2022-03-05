@@ -7,8 +7,9 @@ export default function TimeTravel(gameState, observer) {
     prev.textContent = "Prev";
     prev.addEventListener("click", () => {
       if (gameState.decHead()) {
-        // gameState.decHead();
-        gameState.setBoard(gameState.history()[gameState.getHead()]);
+        gameState.switchPlayer();
+        gameState.copyHistory();
+        gameState.checkoutHistory();
         observer.notify();
       }
     });
@@ -16,6 +17,7 @@ export default function TimeTravel(gameState, observer) {
     const reset = document.createElement("button");
     reset.addEventListener("click", () => {
       gameState.resetHistory();
+      gameState.resetHead();
       gameState.resetBoard();
       observer.notify();
     });
@@ -24,7 +26,7 @@ export default function TimeTravel(gameState, observer) {
     const next = document.createElement("button");
     next.addEventListener("click", () => {
       if (gameState.incHead()) {
-        gameState.setBoard(gameState.history()[gameState.getHead()]);
+        gameState.checkoutHistory();
         observer.notify();
       }
     });

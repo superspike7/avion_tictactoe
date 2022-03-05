@@ -1,4 +1,4 @@
-export default function Board(gameState) {
+export default function Board(gameState, observer) {
   const initialRender = () => {
     const grid = document.createElement("div");
     grid.classList.add(
@@ -40,10 +40,13 @@ export default function Board(gameState) {
     const [row, col] = JSON.parse(e.target.dataset.position);
     gameState.board()[row][col] = gameState.currentPlayer().marker();
     gameState.switchPlayer();
+    if (gameState.history().length - gameState.getHead() > 1) {
+      gameState.spliceHistory();
+    }
     gameState.updateHistory();
-    render();
-    console.log("next Player: ", gameState.currentPlayer().marker());
-    console.log(gameState.checkWinner());
+
+    gameState.checkWinner();
+    observer.notify();
   }
 
   const render = () => {
