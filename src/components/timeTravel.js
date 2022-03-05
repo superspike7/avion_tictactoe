@@ -1,4 +1,4 @@
-export default function TimeTravel(gameState) {
+export default function TimeTravel(gameState, observer) {
   const initialRender = () => {
     const container = document.createElement("div");
     container.classList.add("flex", "gap-4", "justify-center", "mb-16");
@@ -8,14 +8,13 @@ export default function TimeTravel(gameState) {
     prev.addEventListener("click", () => {
       gameState.decHead();
       gameState.setBoard(gameState.history()[gameState.getHead()]);
-      console.log("history: ", gameState.history());
-      console.log("current: ", gameState.board());
+      observer.notify();
     });
 
     const reset = document.createElement("button");
     reset.addEventListener("click", () => {
       gameState.resetBoard();
-      console.log("current: ", gameState.board());
+      observer.notify();
     });
     reset.textContent = "Reset";
 
@@ -23,8 +22,7 @@ export default function TimeTravel(gameState) {
     next.addEventListener("click", () => {
       gameState.incHead();
       gameState.setBoard(gameState.history()[gameState.getHead()]);
-      console.log("history: ", gameState.history());
-      console.log("current: ", gameState.board());
+      observer.notify();
     });
     next.textContent = "Next";
 

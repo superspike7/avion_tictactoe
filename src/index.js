@@ -9,14 +9,14 @@ window.onload = () => {
   const playerTwo = Player("O");
   const newGame = Game(playerOne, playerTwo);
 
-  const timeTravelComponent = TimeTravel(newGame);
-  timeTravelComponent.initialRender();
+  const observer = Observable();
+  const renderHandler = () => {
+    boardComponent.render();
+  };
+  observer.subscribe(renderHandler);
 
-  // const observer = Observable();
-  // const renderHandler = (boardComponent) => {
-  //   boardComponent.render();
-  // };
-  // observer.subscribe()
+  const timeTravelComponent = TimeTravel(newGame, observer);
+  timeTravelComponent.initialRender();
 
   const boardComponent = Board(newGame);
   boardComponent.initialRender();

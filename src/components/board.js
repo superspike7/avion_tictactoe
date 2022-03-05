@@ -54,5 +54,5 @@ export default function Board(gameState) {
     });
   };
 
-  return { initialRender };
+  return { initialRender, render };
 }

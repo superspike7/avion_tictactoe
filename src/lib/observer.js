@@ -1,4 +1,4 @@
-function Observable() {
+export default function Observable() {
   let observers = [];
 
   const subscribe = (fn) => observers.push(fn);
@@ -7,8 +7,8 @@ function Observable() {
     observers.filter((subscriber) => subscriber !== fn);
   };
 
-  const notify = (data) => {
-    observers.forEach((observer) => observer(data));
+  const notify = () => {
+    observers.forEach((observer) => observer());
   };
 
   return { subscribe, unsubscribe, notify };
