@@ -11,18 +11,25 @@ export default function Game(p1, p2) {
   const switchCurrentPlayer = () => players.reverse();
   const getCurrentBoard = () => currentBoard;
   const setCurrentBoard = (newBoard) => (currentBoard = newBoard);
-  const getHistory = () => history;
   const decHead = () => {
     if (history[head - 1] != undefined) {
       head--;
+      return true;
+    } else {
+      return false;
     }
   };
   const incHead = () => {
     if (history[head + 1] != undefined) {
       head++;
+      return true;
+    } else {
+      return false;
     }
   };
   const getHead = () => head;
+  const getHistory = () => history;
+  const resetHistory = () => (history = []);
   const addToHistory = () => {
     history.push(JSON.parse(JSON.stringify(currentBoard)));
     head = history.length - 1;
@@ -76,6 +83,7 @@ export default function Game(p1, p2) {
     checkWinner: checkWinner,
     history: getHistory,
     updateHistory: addToHistory,
+    resetHistory: resetHistory,
     getHead: getHead,
     incHead: incHead,
     // LOL Dickhead! hahaha

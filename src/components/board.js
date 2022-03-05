@@ -38,12 +38,11 @@ export default function Board(gameState) {
 
   function squareHandler(e) {
     const [row, col] = JSON.parse(e.target.dataset.position);
-    // e.target.removeEventListener;
-    // e.target.classList.remove("cursor-pointer");
     gameState.board()[row][col] = gameState.currentPlayer().marker();
     gameState.switchPlayer();
     gameState.updateHistory();
     render();
+    console.log("next Player: ", gameState.currentPlayer().marker());
     console.log(gameState.checkWinner());
   }
 

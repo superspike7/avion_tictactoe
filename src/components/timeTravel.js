@@ -6,13 +6,16 @@ export default function TimeTravel(gameState, observer) {
     const prev = document.createElement("button");
     prev.textContent = "Prev";
     prev.addEventListener("click", () => {
-      gameState.decHead();
-      gameState.setBoard(gameState.history()[gameState.getHead()]);
-      observer.notify();
+      if (gameState.decHead()) {
+        // gameState.decHead();
+        gameState.setBoard(gameState.history()[gameState.getHead()]);
+        observer.notify();
+      }
     });
 
     const reset = document.createElement("button");
     reset.addEventListener("click", () => {
+      gameState.resetHistory();
       gameState.resetBoard();
       observer.notify();
     });
@@ -20,9 +23,10 @@ export default function TimeTravel(gameState, observer) {
 
     const next = document.createElement("button");
     next.addEventListener("click", () => {
-      gameState.incHead();
-      gameState.setBoard(gameState.history()[gameState.getHead()]);
-      observer.notify();
+      if (gameState.incHead()) {
+        gameState.setBoard(gameState.history()[gameState.getHead()]);
+        observer.notify();
+      }
     });
     next.textContent = "Next";
 
