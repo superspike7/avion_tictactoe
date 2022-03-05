@@ -12,7 +12,7 @@ export default function Board(gameState) {
       "gap-1"
     );
 
-    gameState.board.forEach((row, rowIndex) => {
+    gameState.board().forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
         const square = document.createElement("div");
         square.classList.add(
@@ -40,8 +40,9 @@ export default function Board(gameState) {
     const [row, col] = JSON.parse(e.target.dataset.position);
     // e.target.removeEventListener;
     // e.target.classList.remove("cursor-pointer");
-    gameState.board[row][col] = gameState.currentPlayer().marker();
+    gameState.board()[row][col] = gameState.currentPlayer().marker();
     gameState.switchPlayer();
+    gameState.updateHistory();
     render();
     console.log(gameState.checkWinner());
   }
@@ -49,7 +50,7 @@ export default function Board(gameState) {
   const render = () => {
     document.querySelectorAll("[data-position]").forEach((square) => {
       const [row, col] = JSON.parse(square.dataset.position);
-      square.textContent = gameState.board[row][col];
+      square.textContent = gameState.board()[row][col];
     });
   };
 
