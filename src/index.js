@@ -16,12 +16,17 @@ window.onload = () => {
     boardComponent.render();
   };
 
+  const renderTimeTravel = () => {
+    timeTravelComponent.render();
+  };
+
   const renderAnnouncer = () => {
     announcerComponent.render();
   };
 
   observer.subscribe(renderBoard);
   observer.subscribe(renderAnnouncer);
+  observer.subscribe(renderTimeTravel);
 
   const announcerComponent = Announcer(newGame);
   announcerComponent.initialRender();

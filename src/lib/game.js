@@ -28,6 +28,7 @@ export default function Game(p1, p2) {
   const getHead = () => head;
   const resetHead = () => (head = 0);
   const getHistory = () => history;
+  const getCopiedHistory = () => copiedHistory;
   const copyHistory = () => {
     copiedHistory = JSON.parse(JSON.stringify(history));
   };
@@ -89,6 +90,7 @@ export default function Game(p1, p2) {
     checkoutHistory: checkoutHistory,
     resetBoard: setInitialBoard,
     checkWinner: checkWinner,
+    copiedHistory: getCopiedHistory,
     history: getHistory,
     copyHistory: copyHistory,
     updateHistory: addToHistory,
