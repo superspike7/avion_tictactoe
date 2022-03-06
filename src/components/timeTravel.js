@@ -15,6 +15,7 @@ export default function TimeTravel(gameState, observer) {
   };
   const nextHandler = () => {
     if (gameState.incHead()) {
+      gameState.switchPlayer();
       gameState.checkoutHistory();
       observer.notify();
     }
