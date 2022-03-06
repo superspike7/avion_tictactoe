@@ -12,8 +12,8 @@ export default function Announcer(gameState) {
     container.classList.add("flex", "justify-center", "mb-8", "mx-auto");
     const h1 = document.createElement("h1");
     h1.classList.add("text-5xl", "text-slate-700", "font-semibold");
+    h1.textContent = "First to move is: " + gameState.currentPlayer().marker();
     h1.setAttribute("id", "announcer");
-    announce(h1);
     container.appendChild(h1);
     document.querySelector("#root").appendChild(container);
   };

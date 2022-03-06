@@ -11,6 +11,7 @@ export default function TimeTravel(gameState) {
   const resetHandler = () => {
     if (boardEmpty()) {
       gameState.resetHistory();
+      gameState.resetHistoryCopy();
       gameState.resetHead();
       gameState.resetBoard();
       gameState.setHistoryLog({ timeTravel: "Reset" });

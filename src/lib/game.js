@@ -13,6 +13,14 @@ export default function Game(p1, p2) {
   const getPreviousPlayer = () => players[1];
   const switchPlayer = () => players.reverse();
   const board = () => currentBoard;
+  const getHead = () => head;
+  const resetHead = () => (head = 0);
+  const history = () => currentHistory;
+  const resetHistoryCopy = () => (copiedHistory = []);
+  const resetHistory = () => (currentHistory = []);
+  const checkoutHistory = () => (currentBoard = currentHistory[head]);
+  const getHistoryLog = () => historyLog;
+
   const decHead = () => {
     if (currentHistory[head - 1] != undefined) {
       head--;
@@ -21,6 +29,7 @@ export default function Game(p1, p2) {
       return false;
     }
   };
+
   const incHead = () => {
     if (currentHistory[head + 1] != undefined) {
       head++;
@@ -29,18 +38,16 @@ export default function Game(p1, p2) {
       return false;
     }
   };
-  const getHead = () => head;
-  const resetHead = () => (head = 0);
-  const history = () => currentHistory;
+
   const copyHistory = () => {
     copiedHistory = JSON.parse(JSON.stringify(currentHistory));
   };
-  const resetHistory = () => (currentHistory = []);
-  const checkoutHistory = () => (currentBoard = currentHistory[head]);
+
   const updateHistory = () => {
     currentHistory.push(JSON.parse(JSON.stringify(currentBoard)));
     head = currentHistory.length - 1;
   };
+
   const spliceHistory = () => {
     const copy = [...copiedHistory];
     copy.splice(head + 1);
@@ -77,7 +84,6 @@ export default function Game(p1, p2) {
     return false;
   };
 
-  const getHistoryLog = () => historyLog;
   const setHistoryLog = (status) => {
     const POSITION = [
       ["TOP-LEFT", "TOP", "TOP-RIGHT"],
@@ -136,5 +142,6 @@ export default function Game(p1, p2) {
     resetHead,
     setHistoryLog,
     getHistoryLog,
+    resetHistoryCopy,
   };
 }
