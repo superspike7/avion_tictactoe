@@ -7,7 +7,6 @@ export default function Board(gameState, observer) {
       gameState.spliceHistory();
     }
     gameState.updateHistory();
-
     gameState.checkWinner();
     observer.notify();
   };
@@ -17,26 +16,28 @@ export default function Board(gameState, observer) {
     grid.classList.add(
       "grid",
       "mx-auto",
-      "bg-gray-900",
       "w-[35%]",
       "h-3/5",
       "grid-cols-3",
       "grid-rows-3",
-      "gap-1"
+      "gap-8"
     );
 
     gameState.board().forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
         const square = document.createElement("div");
         square.classList.add(
-          "bg-gray-100",
           "text-8xl",
           "flex",
           "justify-center",
           "items-center",
           "h-full",
           "w-full",
-          "cursor-pointer"
+          "cursor-pointer",
+          "font-bold",
+          "nm-concave-gray-100",
+          "hover:nm-convex-red-400",
+          "rounded-full"
         );
         square.setAttribute("data-position", `[${rowIndex}, ${colIndex}]`);
         square.addEventListener("click", squareHandler);
@@ -56,10 +57,10 @@ export default function Board(gameState, observer) {
 
       if (square.textContent != "" || gameState.checkWinner()) {
         square.removeEventListener("click", squareHandler);
-        square.classList.remove("cursor-pointer");
+        square.classList.remove("cursor-pointer", "hover:nm-convex-red-400");
       } else {
         square.addEventListener("click", squareHandler);
-        square.classList.add("cursor-pointer");
+        square.classList.add("cursor-pointer", "hover:nm-convex-red-400");
       }
     });
   };

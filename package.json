@@ -1,10 +1,12 @@
 {
   "devDependencies": {
     "autoprefixer": "^10.4.2",
-    "postcss-cli": "^9.1.0",
-    "tailwindcss": "^3.0.23"
+    "postcss": "^8.4.7",
+    "tailwindcss": "^3.0.23",
+    "tailwindcss-neumorphism": "^0.1.0"
   },
   "scripts": {
-    "dev": "live-server & postcss ./src/tailwind.css -o output.css -w"
-  }
+    "dev": "tailwindcss -o ./output.css -w"
+  },
+  "dependencies": {}
 }
