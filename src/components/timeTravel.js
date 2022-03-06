@@ -41,39 +41,27 @@ export default function TimeTravel(gameState, observer) {
 
     [prev, reset, next].forEach((button) => {
       button.classList.add(
-        "text-xl",
-        "decoration-4",
-        "decoration-red-500",
-        "hover:decoration-red-200"
+        "text-3xl",
+        "font-light",
+        "p-2",
+        "px-8",
+        "rounded-lg",
+        "cursor-default"
       );
     });
-
-    [prev, next].forEach((button) => {
-      button.classList.add("cursor-default");
-    });
-
-    enable(reset);
 
     container.append(prev, reset, next);
     document.querySelector("#root").appendChild(container);
   };
 
   const enable = (el) => {
-    el.classList.add(
-      "underline",
-      "hover:text-gray-700",
-      "text-gray-900",
-      "curor-pointer"
-    );
+    el.classList.add("nm-flat-gray-100", "hover:nm-convex-red-400-sm");
+    el.classList.remove("cursor-default");
   };
 
   const disable = (el) => {
-    el.classList.remove(
-      "underline",
-      "hover:text-gray-700",
-      "text-gray-900",
-      "curor-pointer"
-    );
+    el.classList.remove("nm-flat-gray-100", "hover:nm-convex-red-400-sm");
+    el.classList.add("cursor-default");
   };
 
   const render = () => {
@@ -90,6 +78,17 @@ export default function TimeTravel(gameState, observer) {
       enable(next);
     } else {
       disable(next);
+    }
+
+    if (
+      gameState
+        .board()
+        .flat()
+        .some((cell) => cell !== "")
+    ) {
+      enable(reset);
+    } else {
+      disable(reset);
     }
   };
 

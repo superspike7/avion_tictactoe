@@ -36,7 +36,7 @@ export default function Board(gameState, observer) {
           "cursor-pointer",
           "font-bold",
           "nm-concave-gray-100",
-          "hover:nm-convex-red-400",
+          "hover:nm-convex-red-500",
           "rounded-full"
         );
         square.setAttribute("data-position", `[${rowIndex}, ${colIndex}]`);
@@ -57,10 +57,10 @@ export default function Board(gameState, observer) {
 
       if (square.textContent != "" || gameState.checkWinner()) {
         square.removeEventListener("click", squareHandler);
-        square.classList.remove("cursor-pointer", "hover:nm-convex-red-400");
+        square.classList.remove("cursor-pointer", "hover:nm-convex-red-500");
       } else {
         square.addEventListener("click", squareHandler);
-        square.classList.add("cursor-pointer", "hover:nm-convex-red-400");
+        square.classList.add("cursor-pointer", "hover:nm-convex-red-500");
       }
     });
   };
