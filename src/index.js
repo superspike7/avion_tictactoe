@@ -13,20 +13,13 @@ window.onload = () => {
   const newGame = Game(playerOne, playerTwo);
   const observer = Observable();
 
-  // Lists of observer handlers
-  const renderBoard = () => {
+  const componentRenderHandlers = () => {
     boardComponent.render();
-  };
-  const renderTimeTravel = () => {
     timeTravelComponent.render();
-  };
-  const renderAnnouncer = () => {
     announcerComponent.render();
   };
 
-  observer.subscribe(renderBoard);
-  observer.subscribe(renderAnnouncer);
-  observer.subscribe(renderTimeTravel);
+  observer.subscribe(componentRenderHandlers);
 
   // View Components
   const announcerComponent = Announcer(newGame);

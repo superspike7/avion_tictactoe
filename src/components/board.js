@@ -54,7 +54,7 @@ export default function Board(gameState, observer) {
       const [row, col] = JSON.parse(square.dataset.position);
       square.textContent = gameState.board()[row][col];
 
-      if (square.textContent === "O" || square.textContent === "X") {
+      if (square.textContent != "" || gameState.checkWinner()) {
         square.removeEventListener("click", squareHandler);
         square.classList.remove("cursor-pointer");
       } else {
