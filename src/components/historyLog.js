@@ -50,7 +50,7 @@ export default function HistoryLog(gameState) {
     list.scroll({ top: list.scrollHeight, behavior: "smooth" });
 
     const li = document.createElement("li");
-    li.classList.add("text-xl", "font-light");
+    li.classList.add("text-xl", "font-light", "text-slate-600");
     li.textContent = gameState.getHistoryLog();
 
     document.querySelector("#history").appendChild(li);

@@ -4,17 +4,17 @@ export default function Game(p1, p2) {
   const observer = Observable();
   const players = [p1, p2];
   let currentBoard;
-  let history = [];
+  let currentHistory = [];
   let copiedHistory = [];
   let head = 0;
   let historyLog;
 
-  const getCurrentPlayer = () => players[0];
+  const currentPlayer = () => players[0];
   const getPreviousPlayer = () => players[1];
-  const switchCurrentPlayer = () => players.reverse();
-  const getCurrentBoard = () => currentBoard;
+  const switchPlayer = () => players.reverse();
+  const board = () => currentBoard;
   const decHead = () => {
-    if (history[head - 1] != undefined) {
+    if (currentHistory[head - 1] != undefined) {
       head--;
       return true;
     } else {
@@ -22,7 +22,7 @@ export default function Game(p1, p2) {
     }
   };
   const incHead = () => {
-    if (history[head + 1] != undefined) {
+    if (currentHistory[head + 1] != undefined) {
       head++;
       return true;
     } else {
@@ -31,21 +31,20 @@ export default function Game(p1, p2) {
   };
   const getHead = () => head;
   const resetHead = () => (head = 0);
-  const getHistory = () => history;
-  const getCopiedHistory = () => copiedHistory;
+  const history = () => currentHistory;
   const copyHistory = () => {
-    copiedHistory = JSON.parse(JSON.stringify(history));
+    copiedHistory = JSON.parse(JSON.stringify(currentHistory));
   };
-  const resetHistory = () => (history = []);
-  const checkoutHistory = () => (currentBoard = history[head]);
-  const addToHistory = () => {
-    history.push(JSON.parse(JSON.stringify(currentBoard)));
-    head = history.length - 1;
+  const resetHistory = () => (currentHistory = []);
+  const checkoutHistory = () => (currentBoard = currentHistory[head]);
+  const updateHistory = () => {
+    currentHistory.push(JSON.parse(JSON.stringify(currentBoard)));
+    head = currentHistory.length - 1;
   };
   const spliceHistory = () => {
     const copy = [...copiedHistory];
     copy.splice(head + 1);
-    history = copy;
+    currentHistory = copy;
   };
 
   const checkWinner = () => {
@@ -107,36 +106,34 @@ export default function Game(p1, p2) {
     }
   };
 
-  function setInitialBoard() {
+  const resetBoard = () => {
     let initialBoard = [
       ["", "", ""],
       ["", "", ""],
       ["", "", ""],
     ];
     currentBoard = initialBoard;
-  }
+  };
 
   // On Create
-  setInitialBoard();
+  resetBoard();
   return {
     ...observer,
-    currentPlayer: getCurrentPlayer,
-    switchPlayer: switchCurrentPlayer,
-    board: getCurrentBoard,
-    checkoutHistory: checkoutHistory,
-    resetBoard: setInitialBoard,
-    checkWinner: checkWinner,
-    copiedHistory: getCopiedHistory,
-    history: getHistory,
-    copyHistory: copyHistory,
-    updateHistory: addToHistory,
-    resetHistory: resetHistory,
-    spliceHistory: spliceHistory,
-    getHead: getHead,
-    incHead: incHead,
-    // LOL Dickhead! hahaha
-    decHead: decHead,
-    resetHead: resetHead,
+    currentPlayer,
+    switchPlayer,
+    board,
+    checkoutHistory,
+    resetBoard,
+    checkWinner,
+    history,
+    copyHistory,
+    updateHistory,
+    resetHistory,
+    spliceHistory,
+    getHead,
+    incHead,
+    decHead,
+    resetHead,
     setHistoryLog,
     getHistoryLog,
   };
