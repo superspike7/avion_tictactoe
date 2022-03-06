@@ -4,6 +4,7 @@ export default function Game(p1, p2) {
   let history = [];
   let copiedHistory = [];
   let head = 0;
+  let historyLog;
 
   const getCurrentPlayer = () => players[0];
   const getPreviousPlayer = () => players[1];
@@ -72,6 +73,25 @@ export default function Game(p1, p2) {
     return false;
   };
 
+  const getHistoryLog = () => historyLog;
+  const setHistoryLog = (timeTravel, move) => {
+    const POSITION = [
+      ["TOP-LEFT", "TOP", "TOP-RIGHT"],
+      ["CENTER-LEFT", "CENTER", "CENTER-RIGHT"],
+      ["BOTTOM-LEFT", "BOTTOM", "BOTTOM-RIGHT"],
+    ];
+    if (timeTravel) {
+      historyLog = `${getPreviousPlayer().marker()} pressed ${timeTravel}`;
+    }
+
+    if (move) {
+      const [col, row] = move;
+      historyLog = `${getPreviousPlayer().marker()} moved ${
+        POSITION[col][row]
+      }`;
+    }
+  };
+
   function setInitialBoard() {
     let initialBoard = [
       ["", "", ""],
@@ -101,5 +121,7 @@ export default function Game(p1, p2) {
     // LOL Dickhead! hahaha
     decHead: decHead,
     resetHead: resetHead,
+    setHistoryLog,
+    getHistoryLog,
   };
 }

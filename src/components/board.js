@@ -8,6 +8,7 @@ export default function Board(gameState, observer) {
     }
     gameState.updateHistory();
     gameState.checkWinner();
+    gameState.setHistoryLog(false, [row, col]);
     observer.notify();
   };
 

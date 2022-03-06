@@ -1,6 +1,7 @@
 import Board from "./components/board.js";
 import TimeTravel from "./components/timeTravel.js";
 import Announcer from "./components/announcer.js";
+import HistoryLog from "./components/historyLog.js";
 
 import Player from "./lib/player.js";
 import Game from "./lib/game.js";
@@ -17,16 +18,19 @@ window.onload = () => {
     boardComponent.render();
     timeTravelComponent.render();
     announcerComponent.render();
+    historyLogComponent.render();
   };
 
   observer.subscribe(componentRenderHandlers);
 
   // View Components
   const announcerComponent = Announcer(newGame);
+  const historyLogComponent = HistoryLog(newGame);
   const timeTravelComponent = TimeTravel(newGame, observer);
   const boardComponent = Board(newGame, observer);
 
   announcerComponent.initialRender();
+  historyLogComponent.initialRender();
   timeTravelComponent.initialRender();
   boardComponent.initialRender();
 };

@@ -4,6 +4,7 @@ export default function TimeTravel(gameState, observer) {
       gameState.switchPlayer();
       gameState.copyHistory();
       gameState.checkoutHistory();
+      gameState.setHistoryLog("Undo", false);
       observer.notify();
     }
   };
@@ -11,12 +12,14 @@ export default function TimeTravel(gameState, observer) {
     gameState.resetHistory();
     gameState.resetHead();
     gameState.resetBoard();
+    gameState.setHistoryLog("Reset", false);
     observer.notify();
   };
   const nextHandler = () => {
     if (gameState.incHead()) {
       gameState.switchPlayer();
       gameState.checkoutHistory();
+      gameState.setHistoryLog("Redo", false);
       observer.notify();
     }
   };
@@ -92,8 +95,5 @@ export default function TimeTravel(gameState, observer) {
     }
   };
 
-  return {
-    initialRender,
-    render,
-  };
+  return { initialRender, render };
 }
