@@ -64,9 +64,9 @@ export default function Game(p1, p2) {
     const staleMate = board.every((cell) => cell !== "");
 
     if (winner) {
-      return winner[0];
+      return `Winner is: ${winner[0]}!`;
     } else if (!winner && staleMate) {
-      return "Draw";
+      return "It's a Draw!";
     }
 
     return false;

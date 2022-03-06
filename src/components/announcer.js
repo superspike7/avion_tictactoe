@@ -1,4 +1,12 @@
 export default function Announcer(gameState) {
+  const announce = (el) => {
+    if (gameState.checkWinner()) {
+      el.textContent = gameState.checkWinner();
+    } else {
+      el.textContent =
+        "current Player is: " + gameState.currentPlayer().marker();
+    }
+  };
   const initialRender = () => {
     const container = document.createElement("div");
     container.classList.add("flex", "justify-center", "mb-8");
@@ -12,15 +20,6 @@ export default function Announcer(gameState) {
   const render = () => {
     const h1 = document.querySelector("#announcer");
     announce(h1);
-  };
-
-  const announce = (el) => {
-    if (gameState.checkWinner()) {
-      el.textContent = "winner is: " + gameState.checkWinner();
-    } else {
-      el.textContent =
-        "current Player is: " + gameState.currentPlayer().marker();
-    }
   };
 
   return { initialRender, render };

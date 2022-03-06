@@ -1,4 +1,17 @@
 export default function Board(gameState, observer) {
+  const squareHandler = (e) => {
+    const [row, col] = JSON.parse(e.target.dataset.position);
+    gameState.board()[row][col] = gameState.currentPlayer().marker();
+    gameState.switchPlayer();
+    if (gameState.history().length - gameState.getHead() > 1) {
+      gameState.spliceHistory();
+    }
+    gameState.updateHistory();
+
+    gameState.checkWinner();
+    observer.notify();
+  };
+
   const initialRender = () => {
     const grid = document.createElement("div");
     grid.classList.add(
@@ -35,19 +48,6 @@ export default function Board(gameState, observer) {
     const container = document.querySelector("#root");
     container.appendChild(grid);
   };
-
-  function squareHandler(e) {
-    const [row, col] = JSON.parse(e.target.dataset.position);
-    gameState.board()[row][col] = gameState.currentPlayer().marker();
-    gameState.switchPlayer();
-    if (gameState.history().length - gameState.getHead() > 1) {
-      gameState.spliceHistory();
-    }
-    gameState.updateHistory();
-
-    gameState.checkWinner();
-    observer.notify();
-  }
 
   const render = () => {
     document.querySelectorAll("[data-position]").forEach((square) => {
