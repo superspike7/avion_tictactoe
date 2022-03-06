@@ -1,26 +1,28 @@
-export default function TimeTravel(gameState, observer) {
+export default function TimeTravel(gameState) {
   const prevHandler = () => {
     if (gameState.decHead()) {
       gameState.switchPlayer();
       gameState.copyHistory();
       gameState.checkoutHistory();
-      gameState.setHistoryLog("Undo", false);
-      observer.notify();
+      gameState.setHistoryLog({ timeTravel: "Undo" });
+      gameState.notify();
     }
   };
   const resetHandler = () => {
-    gameState.resetHistory();
-    gameState.resetHead();
-    gameState.resetBoard();
-    gameState.setHistoryLog("Reset", false);
-    observer.notify();
+    if (boardEmpty()) {
+      gameState.resetHistory();
+      gameState.resetHead();
+      gameState.resetBoard();
+      gameState.setHistoryLog({ timeTravel: "Reset" });
+      gameState.notify();
+    }
   };
   const nextHandler = () => {
     if (gameState.incHead()) {
       gameState.switchPlayer();
       gameState.checkoutHistory();
-      gameState.setHistoryLog("Redo", false);
-      observer.notify();
+      gameState.setHistoryLog({ timeTravel: "Redo" });
+      gameState.notify();
     }
   };
   const initialRender = () => {
@@ -49,7 +51,8 @@ export default function TimeTravel(gameState, observer) {
         "p-2",
         "px-8",
         "rounded-lg",
-        "cursor-default"
+        "cursor-default",
+        "text-slate-800"
       );
     });
 
@@ -58,12 +61,12 @@ export default function TimeTravel(gameState, observer) {
   };
 
   const enable = (el) => {
-    el.classList.add("nm-flat-gray-100", "hover:nm-convex-red-400-sm");
+    el.classList.add("nm-flat-slate-200-sm", "hover:nm-convex-red-400-sm");
     el.classList.remove("cursor-default");
   };
 
   const disable = (el) => {
-    el.classList.remove("nm-flat-gray-100", "hover:nm-convex-red-400-sm");
+    el.classList.remove("nm-flat-slate-200-sm", "hover:nm-convex-red-400-sm");
     el.classList.add("cursor-default");
   };
 
@@ -83,16 +86,19 @@ export default function TimeTravel(gameState, observer) {
       disable(next);
     }
 
-    if (
-      gameState
-        .board()
-        .flat()
-        .some((cell) => cell !== "")
-    ) {
+    if (boardEmpty()) {
       enable(reset);
     } else {
       disable(reset);
     }
+  };
+
+  // HELPER
+  const boardEmpty = () => {
+    return gameState
+      .board()
+      .flat()
+      .some((cell) => cell !== "");
   };
 
   return { initialRender, render };

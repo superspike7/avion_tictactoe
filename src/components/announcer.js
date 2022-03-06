@@ -11,7 +11,7 @@ export default function Announcer(gameState) {
     const container = document.createElement("div");
     container.classList.add("flex", "justify-center", "mb-8", "mx-auto");
     const h1 = document.createElement("h1");
-    h1.classList.add("text-5xl", "text-gray-900", "font-semibold");
+    h1.classList.add("text-5xl", "text-slate-700", "font-semibold");
     h1.setAttribute("id", "announcer");
     announce(h1);
     container.appendChild(h1);

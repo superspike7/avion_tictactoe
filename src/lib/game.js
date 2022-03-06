@@ -1,4 +1,7 @@
+import Observable from "./observer.js";
+
 export default function Game(p1, p2) {
+  const observer = Observable();
   const players = [p1, p2];
   let currentBoard;
   let history = [];
@@ -65,8 +68,10 @@ export default function Game(p1, p2) {
     const staleMate = board.every((cell) => cell !== "");
 
     if (winner) {
+      setHistoryLog({ winner: winner[0] });
       return `Winner is: ${winner[0]}!`;
     } else if (!winner && staleMate) {
+      setHistoryLog({ draw: true });
       return "It's a Draw!";
     }
 
@@ -74,18 +79,28 @@ export default function Game(p1, p2) {
   };
 
   const getHistoryLog = () => historyLog;
-  const setHistoryLog = (timeTravel, move) => {
+  const setHistoryLog = (status) => {
     const POSITION = [
       ["TOP-LEFT", "TOP", "TOP-RIGHT"],
       ["CENTER-LEFT", "CENTER", "CENTER-RIGHT"],
       ["BOTTOM-LEFT", "BOTTOM", "BOTTOM-RIGHT"],
     ];
-    if (timeTravel) {
-      historyLog = `${getPreviousPlayer().marker()} pressed ${timeTravel}`;
+    if (status.timeTravel) {
+      historyLog = `${getPreviousPlayer().marker()} pressed ${
+        status.timeTravel
+      }`;
     }
 
-    if (move) {
-      const [col, row] = move;
+    if (status.winner) {
+      historyLog = `${status.winner} Won`;
+    }
+
+    if (status.draw) {
+      historyLog = `Game Draw`;
+    }
+
+    if (status.move) {
+      const [col, row] = status.move;
       historyLog = `${getPreviousPlayer().marker()} moved ${
         POSITION[col][row]
       }`;
@@ -104,6 +119,7 @@ export default function Game(p1, p2) {
   // On Create
   setInitialBoard();
   return {
+    ...observer,
     currentPlayer: getCurrentPlayer,
     switchPlayer: switchCurrentPlayer,
     board: getCurrentBoard,

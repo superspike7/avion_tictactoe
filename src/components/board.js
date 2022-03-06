@@ -1,4 +1,4 @@
-export default function Board(gameState, observer) {
+export default function Board(gameState) {
   const squareHandler = (e) => {
     const [row, col] = JSON.parse(e.target.dataset.position);
     gameState.board()[row][col] = gameState.currentPlayer().marker();
@@ -8,8 +8,8 @@ export default function Board(gameState, observer) {
     }
     gameState.updateHistory();
     gameState.checkWinner();
-    gameState.setHistoryLog(false, [row, col]);
-    observer.notify();
+    gameState.setHistoryLog({ move: [row, col] });
+    gameState.notify();
   };
 
   const initialRender = () => {
@@ -36,8 +36,8 @@ export default function Board(gameState, observer) {
           "w-full",
           "cursor-pointer",
           "font-bold",
-          "nm-concave-gray-100",
-          "hover:nm-convex-red-500",
+          "nm-concave-slate-100-xs",
+          "hover:nm-convex-red-500-sm",
           "rounded-full"
         );
         square.setAttribute("data-position", `[${rowIndex}, ${colIndex}]`);
@@ -58,10 +58,10 @@ export default function Board(gameState, observer) {
 
       if (square.textContent != "" || gameState.checkWinner()) {
         square.removeEventListener("click", squareHandler);
-        square.classList.remove("cursor-pointer", "hover:nm-convex-red-500");
+        square.classList.remove("cursor-pointer", "hover:nm-convex-red-500-sm");
       } else {
         square.addEventListener("click", squareHandler);
-        square.classList.add("cursor-pointer", "hover:nm-convex-red-500");
+        square.classList.add("cursor-pointer", "hover:nm-convex-red-500-sm");
       }
     });
   };

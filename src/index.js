@@ -5,14 +5,12 @@ import HistoryLog from "./components/historyLog.js";
 
 import Player from "./lib/player.js";
 import Game from "./lib/game.js";
-import Observable from "./lib/observer.js";
 
 window.onload = () => {
   // Initial Objects/States
   const playerOne = Player("X");
   const playerTwo = Player("O");
   const newGame = Game(playerOne, playerTwo);
-  const observer = Observable();
 
   const componentRenderHandlers = () => {
     boardComponent.render();
@@ -21,13 +19,13 @@ window.onload = () => {
     historyLogComponent.render();
   };
 
-  observer.subscribe(componentRenderHandlers);
+  newGame.subscribe(componentRenderHandlers);
 
   // View Components
   const announcerComponent = Announcer(newGame);
   const historyLogComponent = HistoryLog(newGame);
-  const timeTravelComponent = TimeTravel(newGame, observer);
-  const boardComponent = Board(newGame, observer);
+  const timeTravelComponent = TimeTravel(newGame);
+  const boardComponent = Board(newGame);
 
   announcerComponent.initialRender();
   historyLogComponent.initialRender();

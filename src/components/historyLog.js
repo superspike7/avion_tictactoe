@@ -3,7 +3,7 @@ export default function HistoryLog(gameState) {
     const container = document.createElement("div");
     container.classList.add(
       "rounded-[50px]",
-      "nm-flat-gray-100-xl",
+      "nm-flat-slate-200-lg",
       "h-[85vh]",
       "w-[20%]",
       "absolute",
@@ -21,13 +21,13 @@ export default function HistoryLog(gameState) {
       "p-2",
       "rounded-xl",
       "mx-auto",
-      "text-gray-900"
+      "text-slate-500"
     );
 
     const list = document.createElement("ul");
     list.setAttribute("id", "history");
     list.classList.add(
-      "nm-inset-gray-100-lg",
+      "nm-inset-slate-200",
       "rounded-xl",
       "w-[90%]",
       "mx-auto",
@@ -35,7 +35,9 @@ export default function HistoryLog(gameState) {
       "mt-8",
       "list-disc",
       "p-5",
-      "px-10"
+      "px-10",
+      "overflow-y-auto",
+      "snap-y"
     );
 
     container.appendChild(title);
@@ -44,8 +46,13 @@ export default function HistoryLog(gameState) {
   };
 
   const render = () => {
+    const list = document.querySelector("#history");
+    list.scroll({ top: list.scrollHeight, behavior: "smooth" });
+
     const li = document.createElement("li");
+    li.classList.add("text-xl", "font-light");
     li.textContent = gameState.getHistoryLog();
+
     document.querySelector("#history").appendChild(li);
   };
   return { initialRender, render };
