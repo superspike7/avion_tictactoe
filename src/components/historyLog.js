@@ -33,7 +33,7 @@ export default function HistoryLog(gameState) {
       "mx-auto",
       "h-[80%]",
       "mt-8",
-      "list-disc",
+      "list-decimal",
       "p-5",
       "px-10",
       "overflow-y-auto",

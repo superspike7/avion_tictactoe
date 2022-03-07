@@ -11,6 +11,15 @@ window.onload = () => {
   const playerOne = Player("X");
   const playerTwo = Player("O");
   const newGame = Game(playerOne, playerTwo);
+  const websocket = new WebSocket("ws://127.0.0.1:8080/", "game");
+
+  websocket.onopen = function () {
+    websocket.send("open");
+  };
+
+  websocket.onmessage = function (event) {
+    console.log("websocket: ", event.data);
+  };
 
   const componentRenderHandlers = () => {
     boardComponent.render();
