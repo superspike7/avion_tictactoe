@@ -16,8 +16,9 @@ export default function Game(p1, p2) {
   const getHead = () => head;
   const resetHead = () => (head = 0);
   const history = () => currentHistory;
+  const cachedHistory = () => copiedHistory;
   const resetHistoryCopy = () => (copiedHistory = []);
-  const resetHistory = () => (currentHistory = []);
+  const resetHistory = (newHistory = []) => (currentHistory = newHistory);
   const checkoutHistory = () => (currentBoard = currentHistory[head]);
   const getHistoryLog = () => historyLog;
 
@@ -143,5 +144,6 @@ export default function Game(p1, p2) {
     setHistoryLog,
     getHistoryLog,
     resetHistoryCopy,
+    cachedHistory,
   };
 }

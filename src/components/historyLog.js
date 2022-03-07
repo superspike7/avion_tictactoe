@@ -37,7 +37,8 @@ export default function HistoryLog(gameState) {
       "p-5",
       "px-10",
       "overflow-y-auto",
-      "snap-y"
+      "snap-y",
+      "scrollbar-color"
     );
 
     container.appendChild(title);

@@ -6,6 +6,10 @@ export default function Board(gameState) {
     if (gameState.history().length - gameState.getHead() > 1) {
       gameState.spliceHistory();
     }
+
+    if (gameState.cachedHistory().length - gameState.getHead() == 1) {
+      gameState.resetHistory(gameState.cachedHistory());
+    }
     gameState.updateHistory();
     gameState.checkWinner();
     gameState.setHistoryLog({ move: [row, col] });
